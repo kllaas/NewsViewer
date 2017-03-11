@@ -29,9 +29,10 @@
             <com.example.alexey.newsviewer.utils.SquareImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="96dp"
                 android:layout_marginEnd="8dp"
                 android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
                 app:imageUrl="@{news.urlToImage}"/>
 
             <TextView

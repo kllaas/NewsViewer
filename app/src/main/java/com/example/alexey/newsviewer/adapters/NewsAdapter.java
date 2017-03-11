@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alexey.newsviewer.Constants;
+import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
 import com.example.alexey.newsviewer.model.NewsItem;
 import com.example.alexey.newsviewer.news_details.NewsDetailsActivity;
@@ -81,6 +82,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         }
 
         void onSwiped() {
+            NewsRepository.getInstance().removeNews(news.get(this.getAdapterPosition()).getId());
+
             news.remove(this.getAdapterPosition());
             notifyItemRemoved(this.getAdapterPosition());
         }
