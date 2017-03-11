@@ -2,13 +2,12 @@ package com.example.alexey.newsviewer.news;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableList;
 
 import com.example.alexey.newsviewer.App;
 import com.example.alexey.newsviewer.model.NewsItem;
 import com.example.alexey.newsviewer.model.NewsList;
+import com.example.alexey.newsviewer.utils.CustomObservableList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,17 +23,17 @@ import static com.example.alexey.newsviewer.data.BBCApi.Constants.SORT_TYPE;
 
 public class NewsViewModel extends BaseObservable {
 
-    public final ObservableList<NewsItem> items = new ObservableArrayList<>();
+    public final CustomObservableList<NewsItem> items = new CustomObservableList<>();
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
 
     public final ObservableBoolean mIsDataLoadingError = new ObservableBoolean(false);
 
-    public NewsViewModel() {
+    NewsViewModel() {
         start();
     }
 
-    public void start() {
+    private void start() {
 
         dataLoading.set(true);
 

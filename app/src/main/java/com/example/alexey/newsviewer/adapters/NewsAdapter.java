@@ -23,7 +23,7 @@ import java.util.List;
  * Created by alexey on 10/03/17.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHolder> implements OnItemClickListener<NewsItem> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder> implements OnItemClickListener<NewsItem> {
 
     private List<NewsItem> news = new ArrayList<>();
 
@@ -39,15 +39,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
     }
 
     @Override
-    public NewsItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         NewsItemBinding binding = NewsItemBinding.inflate(inflater, parent, false);
 
-        return new NewsItemViewHolder(binding.getRoot());
+        return new ItemViewHolder(binding.getRoot());
     }
 
     @Override
-    public void onBindViewHolder(NewsItemViewHolder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
         NewsItem newsItem = news.get(position);
         holder.binding.setNews(newsItem);
 
@@ -71,13 +71,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
         v.getContext().startActivity(intent);
     }
 
-    public class NewsItemViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         NewsItemBinding binding;
 
-        public NewsItemViewHolder(View itemView) {
+        ItemViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
+        }
+
+        void onSwiped() {
+            news.remove(this.getAdapterPosition());
+            notifyItemRemoved(this.getAdapterPosition());
         }
     }
 }

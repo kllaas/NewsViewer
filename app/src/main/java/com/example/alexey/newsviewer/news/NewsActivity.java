@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.example.alexey.newsviewer.R;
+import com.example.alexey.newsviewer.adapters.MyItemTouchHelper;
 import com.example.alexey.newsviewer.adapters.NewsAdapter;
 import com.example.alexey.newsviewer.databinding.ActivityNewsBinding;
 
@@ -37,5 +39,9 @@ public class NewsActivity extends AppCompatActivity {
 
         RecyclerView.Adapter mAdapter = new NewsAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
+
+        ItemTouchHelper.Callback callback = new MyItemTouchHelper();
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
     }
 }
