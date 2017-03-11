@@ -25,8 +25,9 @@ public class NewsViewModel extends BaseObservable {
 
     private NewsRepository mRepository;
 
-    NewsViewModel() {
+    public NewsViewModel() {
         mRepository = NewsRepository.getInstance();
+
         start();
     }
 

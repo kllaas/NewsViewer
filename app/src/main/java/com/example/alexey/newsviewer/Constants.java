@@ -6,6 +6,6 @@ package com.example.alexey.newsviewer;
 
 public interface Constants {
 
-    String NEWS_ID = "NEWS_ID";
+    String NEWS_URL = "NEWS_URL";
 
 }

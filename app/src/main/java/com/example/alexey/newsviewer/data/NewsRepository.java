@@ -48,8 +48,10 @@ public class NewsRepository {
             @Override
             public void onResponse(Call<NewsList> call, Response<NewsList> response) {
                 if (response.isSuccessful()) {
-                    refreshCache(response.body().getNews());
-                    callback.onNewsLoaded(response.body().getNews());
+                    List<NewsItem> newsList = response.body().getNews();
+
+                    refreshCache(newsList);
+                    callback.onNewsLoaded(newsList);
 
                     return;
                 }
@@ -69,19 +71,19 @@ public class NewsRepository {
         }
         mCachedTasks.clear();
         for (NewsItem newsItem : news) {
-            mCachedTasks.put(newsItem.getId(), newsItem);
+            mCachedTasks.put(newsItem.getUrl(), newsItem);
         }
     }
 
-    public void removeNews(String taskId) {
-        mCachedTasks.remove(taskId);
+    public void removeNews(String url) {
+        mCachedTasks.remove(url);
     }
 
-    public NewsItem getNewsWithId(String id) {
+    public NewsItem getNewsWithUrl(String url) {
         if (mCachedTasks == null || mCachedTasks.isEmpty()) {
             return null;
         } else {
-            return mCachedTasks.get(id);
+            return mCachedTasks.get(url);
         }
     }
 }

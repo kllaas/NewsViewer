@@ -68,7 +68,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
     @Override
     public void onItemClick(NewsItem item, View v) {
         Intent intent = new Intent(v.getContext(), NewsDetailsActivity.class);
-        intent.putExtra(Constants.NEWS_ID, item.getId());
+        intent.putExtra(Constants.NEWS_URL, item.getUrl());
         v.getContext().startActivity(intent);
     }
 
@@ -82,7 +82,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         }
 
         void onSwiped() {
-            NewsRepository.getInstance().removeNews(news.get(this.getAdapterPosition()).getId());
+            NewsRepository.getInstance().removeNews(news.get(this.getAdapterPosition()).getUrl());
 
             news.remove(this.getAdapterPosition());
             notifyItemRemoved(this.getAdapterPosition());

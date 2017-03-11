@@ -3,15 +3,11 @@ package com.example.alexey.newsviewer.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.UUID;
-
 /**
  * Created by alexey on 10/03/17.
  */
 
 public class NewsItem {
-
-    private String id;
 
     @SerializedName("author")
     @Expose
@@ -29,25 +25,32 @@ public class NewsItem {
     @Expose
     private String urlToImage;
 
+    /**
+     * Could be used as Id of NewsItem because it is unique field
+     */
+    @SerializedName("url")
+    @Expose
+    private String url;
+
     @SerializedName("publishedAt")
     @Expose
     private String publishedAt;
 
-    public NewsItem(String author, String title, String description, String urlToImage, String publishedAt) {
+    public NewsItem(String author, String title, String description, String urlToImage, String url, String publishedAt) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.urlToImage = urlToImage;
+        this.url = url;
         this.publishedAt = publishedAt;
-        id = UUID.randomUUID().toString();
     }
 
-    public String getId() {
-        return id;
+    public String getUrl() {
+        return url;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getAuthor() {
