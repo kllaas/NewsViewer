@@ -8,6 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">
+            @transition/change_image_transform
+        </item>
     </style>
 
 </resources>

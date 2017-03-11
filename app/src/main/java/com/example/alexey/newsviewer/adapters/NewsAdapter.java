@@ -1,15 +1,17 @@
 package com.example.alexey.newsviewer.adapters;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alexey.newsviewer.Constants;
+import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
 import com.example.alexey.newsviewer.model.NewsItem;
@@ -33,10 +35,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
     }
 
     @BindingAdapter("bind:imageUrl")
-    public static void loadImage(SquareImageView imageView, String v) {
-        Picasso.Builder builder = new Picasso.Builder(imageView.getContext());
-        builder.listener((picasso, uri, exception) -> Log.d("LoadImage", exception.getMessage()));
-        builder.build().load(v).into(imageView);
+    public static void loadImage(SquareImageView imageView, String url) {
+        Picasso.with(imageView.getContext())
+                .load(url)
+                .noFade()
+                .fit()
+                .centerInside()
+                .into(imageView);
+
+        Picasso.with(imageView.getContext()).load(url);
     }
 
     @Override
@@ -52,7 +59,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         NewsItem newsItem = news.get(position);
         holder.binding.setNews(newsItem);
 
-        holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v));
+        holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding.imageView));
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -66,9 +73,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
     }
 
     @Override
-    public void onItemClick(NewsItem item, View v) {
+    public void onItemClick(NewsItem item, View v, SquareImageView imageView) {
         Intent intent = new Intent(v.getContext(), NewsDetailsActivity.class);
         intent.putExtra(Constants.NEWS_URL, item.getUrl());
+
+        // To use Shared Element Transition
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation((Activity) v.getContext(), imageView, v.getContext().getString(R.string.transition_image_name));
+
+            v.getContext().startActivity(intent, options.toBundle());
+
+            return;
+        }
+
         v.getContext().startActivity(intent);
     }
 
