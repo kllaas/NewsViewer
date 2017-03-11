@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">NewsViewer</string>
-    <string name="transition_image_name">image_transition</string>
+    <string name="transition_name_image">image_transition</string>
 </resources>

@@ -17,11 +17,17 @@ import com.squareup.picasso.Picasso;
 public class DetailViewModel extends BaseObservable {
 
     private static ImageReadyCallback mImageReadyCallback;
+
     public final ObservableField<String> author = new ObservableField<>();
+
     public final ObservableField<String> title = new ObservableField<>();
+
     public final ObservableField<String> description = new ObservableField<>();
+
     public final ObservableField<String> urlToImage = new ObservableField<>();
+
     public final ObservableField<String> publishedAt = new ObservableField<>();
+
     private NewsRepository mRepository;
 
     private String mUrl;

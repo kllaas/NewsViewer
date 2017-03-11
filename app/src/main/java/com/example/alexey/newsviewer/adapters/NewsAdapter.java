@@ -1,17 +1,18 @@
 package com.example.alexey.newsviewer.adapters;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alexey.newsviewer.Constants;
-import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
 import com.example.alexey.newsviewer.model.NewsItem;
@@ -30,8 +31,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
 
     private List<NewsItem> news = new ArrayList<>();
 
-    public NewsAdapter(List<NewsItem> news) {
+    private Context mContext;
+
+    public NewsAdapter(List<NewsItem> news, Context context) {
         this.news = news;
+        mContext = context;
     }
 
     @BindingAdapter("bind:imageUrl")
@@ -42,8 +46,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
                 .fit()
                 .centerInside()
                 .into(imageView);
-
-        Picasso.with(imageView.getContext()).load(url);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         NewsItem newsItem = news.get(position);
         holder.binding.setNews(newsItem);
 
-        holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding.imageView));
+        holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding));
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -73,21 +75,24 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
     }
 
     @Override
-    public void onItemClick(NewsItem item, View v, SquareImageView imageView) {
+    public void onItemClick(NewsItem item, View v, NewsItemBinding binding) {
         Intent intent = new Intent(v.getContext(), NewsDetailsActivity.class);
         intent.putExtra(Constants.NEWS_URL, item.getUrl());
 
         // To use Shared Element Transition
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options = ActivityOptions
-                    .makeSceneTransitionAnimation((Activity) v.getContext(), imageView, v.getContext().getString(R.string.transition_image_name));
 
-            v.getContext().startActivity(intent, options.toBundle());
+            Pair<View, String> pair1 = Pair.create(binding.imageView, binding.imageView.getTransitionName());
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation((AppCompatActivity) mContext, pair1);
+
+            mContext.startActivity(intent, options.toBundle());
 
             return;
         }
 
-        v.getContext().startActivity(intent);
+        mContext.startActivity(intent);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

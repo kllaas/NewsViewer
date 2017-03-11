@@ -39,11 +39,10 @@ public class NewsActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initAppearAnimation() {
 
-        // inside your activity (if you did not enable transitions in your theme)
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-// set an enter transition
+
         getWindow().setEnterTransition(new Explode());
-// set an exit transition
+
         getWindow().setExitTransition(new Explode());
     }
 
@@ -56,7 +55,7 @@ public class NewsActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerView.Adapter mAdapter = new NewsAdapter(new ArrayList<>());
+        RecyclerView.Adapter mAdapter = new NewsAdapter(new ArrayList<>(), this);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new MyItemTouchHelper();

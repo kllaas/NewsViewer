@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.Window;
@@ -28,8 +29,6 @@ public class NewsDetailsActivity extends AppCompatActivity implements ImageReady
 
         ActivityNewsDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_news_detail);
 
-        supportStartPostponedEnterTransition();
-
         String newsUrl = getIntent().getExtras().getString(Constants.NEWS_URL);
 
         DetailViewModel mViewModel = new DetailViewModel(newsUrl, this);
@@ -38,6 +37,7 @@ public class NewsDetailsActivity extends AppCompatActivity implements ImageReady
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initAppearAnimation() {
+        ActivityCompat.postponeEnterTransition(this);
 
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
@@ -46,6 +46,6 @@ public class NewsDetailsActivity extends AppCompatActivity implements ImageReady
 
     @Override
     public void onImageReady() {
-        supportStartPostponedEnterTransition();
+        ActivityCompat.startPostponedEnterTransition(this);
     }
 }
