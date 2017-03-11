@@ -3,11 +3,15 @@ package com.example.alexey.newsviewer.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.UUID;
+
 /**
  * Created by alexey on 10/03/17.
  */
 
 public class NewsItem {
+
+    private String id;
 
     @SerializedName("author")
     @Expose
@@ -35,6 +39,15 @@ public class NewsItem {
         this.description = description;
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
+        id = UUID.randomUUID().toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAuthor() {

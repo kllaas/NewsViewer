@@ -6,5 +6,6 @@ package com.example.alexey.newsviewer.news;
 
 public interface NewsNavigation {
 
-    void addNewNews();
+    void openNewsDetails();
+
 }

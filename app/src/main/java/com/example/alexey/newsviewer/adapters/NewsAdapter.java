@@ -1,5 +1,6 @@
 package com.example.alexey.newsviewer.adapters;
 
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.example.alexey.newsviewer.Constants;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
 import com.example.alexey.newsviewer.model.NewsItem;
+import com.example.alexey.newsviewer.news_details.NewsDetailsActivity;
 import com.example.alexey.newsviewer.utils.SquareImageView;
 import com.squareup.picasso.Picasso;
 
@@ -21,12 +23,9 @@ import java.util.List;
  * Created by alexey on 10/03/17.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHolder> implements OnItemClickListener<NewsItem> {
 
     private List<NewsItem> news = new ArrayList<>();
-
-    private OnItemClickListener<NewsItem> onItemClickListener = (position, item, view) ->
-            Toast.makeText(view.getContext(), "onClick" + position, Toast.LENGTH_SHORT).show();
 
     public NewsAdapter(List<NewsItem> news) {
         this.news = news;
@@ -52,10 +51,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
         NewsItem newsItem = news.get(position);
         holder.binding.setNews(newsItem);
 
-        holder.binding.getRoot().setOnClickListener(v -> {
-            if (onItemClickListener != null)
-                onItemClickListener.onItemClick(position, newsItem, v);
-        });
+        holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v));
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -66,6 +62,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
     @Override
     public int getItemCount() {
         return news.size();
+    }
+
+    @Override
+    public void onItemClick(NewsItem item, View v) {
+        Intent intent = new Intent(v.getContext(), NewsDetailsActivity.class);
+        intent.putExtra(Constants.NEWS_ID, item.getId());
+        v.getContext().startActivity(intent);
     }
 
     public class NewsItemViewHolder extends RecyclerView.ViewHolder {

@@ -30,8 +30,6 @@ public class NewsViewModel extends BaseObservable {
 
     public final ObservableBoolean mIsDataLoadingError = new ObservableBoolean(false);
 
-    NewsNavigation navigation;
-
     public NewsViewModel() {
         start();
     }
@@ -39,7 +37,6 @@ public class NewsViewModel extends BaseObservable {
     public void start() {
 
         dataLoading.set(true);
-
 
         App.getApi().getData(RESOURSE_NAME, SORT_TYPE, API_KEY).enqueue(new Callback<NewsList>() {
             @Override
@@ -65,4 +62,5 @@ public class NewsViewModel extends BaseObservable {
     public boolean isEmpty() {
         return items.isEmpty();
     }
+
 }
