@@ -12,7 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.alexey.newsviewer.data.BBCApi.Constants.API_KEY;
-import static com.example.alexey.newsviewer.data.BBCApi.Constants.RESOURSE_NAME;
+import static com.example.alexey.newsviewer.data.BBCApi.Constants.RESOURCE_NAME;
 import static com.example.alexey.newsviewer.data.BBCApi.Constants.SORT_TYPE;
 
 /**
@@ -42,7 +42,7 @@ public class NewsRepository {
             return;
         }
 
-        App.getApi().getData(RESOURSE_NAME, SORT_TYPE, API_KEY).enqueue(new Callback<NewsList>() {
+        App.getApi().getData(RESOURCE_NAME, SORT_TYPE, API_KEY).enqueue(new Callback<NewsList>() {
             @Override
             public void onResponse(Call<NewsList> call, Response<NewsList> response) {
                 if (response.isSuccessful()) {

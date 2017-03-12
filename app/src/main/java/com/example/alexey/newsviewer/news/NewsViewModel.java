@@ -1,7 +1,6 @@
 package com.example.alexey.newsviewer.news;
 
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 
 import com.example.alexey.newsviewer.data.LoadDataCallback;
@@ -50,11 +49,6 @@ public class NewsViewModel extends BaseObservable {
                 mIsDataLoadingError.set(true);
             }
         });
-    }
-
-    @Bindable
-    public boolean isEmpty() {
-        return items.isEmpty();
     }
 
 }

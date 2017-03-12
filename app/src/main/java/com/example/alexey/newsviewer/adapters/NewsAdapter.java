@@ -9,7 +9,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,18 +65,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
 
         holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding));
 
-        holder.binding.setSpinnerModel(new SpinnerModel(mContext));
+        SpinnerModel spinnerModel = new SpinnerModel(mContext);
+        holder.binding.setSpinnerModel(spinnerModel);
 
-        holder.binding.getSpinnerModel().currentPosition.set(SpinnerHelper.getSpinnerFromColor(newsItem.getColor(), mContext));
+        spinnerModel.currentPosition.set(SpinnerHelper.getSpinnerFromColor(newsItem.getColor(), mContext));
 
-        holder.binding.getSpinnerModel().currentPosition.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        spinnerModel.currentPosition.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int value) {
+
                 // Set color from selected in spinner value to cardView
                 holder.binding.getNews().setColor(
                         SpinnerHelper.getColorFromSpinner(holder.binding.getSpinnerModel().currentPosition.get(), mContext));
-
-                Log.d("currentPosition", holder.binding.getSpinnerModel().currentPosition.get() + "");
             }
 
         });

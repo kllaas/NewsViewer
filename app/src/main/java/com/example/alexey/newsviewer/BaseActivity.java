@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     public final static String BROADCAST_ACTION = "com.example.alexey.newsviewer";
     public static final String TIME = "time";
 
-    BroadcastReceiver mReceiver;
+    private BroadcastReceiver mReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,12 +63,6 @@ public class BaseActivity extends AppCompatActivity {
 
         IntentFilter filter = new IntentFilter(BROADCAST_ACTION);
         registerReceiver(mReceiver, filter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
     }
 
 }

@@ -29,6 +29,7 @@ public class NewsListBindings {
     @BindingAdapter("app:items")
     public static void setItems(RecyclerView recyclerView, List<NewsItem> items) {
         NewsAdapter adapter = (NewsAdapter) recyclerView.getAdapter();
+
         if (adapter != null) {
             adapter.replaceData(items);
         }

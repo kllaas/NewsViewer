@@ -20,8 +20,6 @@ public class App extends Application {
 
     private static BBCApi bbcApi;
 
-    private Retrofit retrofit;
-
     public static BBCApi getApi() {
         return bbcApi;
     }
@@ -30,7 +28,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BBCApi.Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

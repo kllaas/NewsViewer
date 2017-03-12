@@ -18,14 +18,14 @@
         <RelativeLayout
             android:id="@+id/activity_news"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="24dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/large_margin"
             tools:context="com.example.alexey.newsviewer.news.NewsActivity">
 
             <ImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
-                android:layout_height="256dp"
+                android:layout_height="@dimen/size_image"
                 android:scaleType="centerCrop"
                 android:transitionName="@string/transition_name_image"
                 app:imageUrl="@{viewModel.urlToImage}"/>
