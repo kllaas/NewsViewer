@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinner_states">
-        <item>First color</item>
-        <item>Second color</item>
-        <item>Third color</item>
+        <item>Default color</item>
+        <item>Green</item>
+        <item>Blue</item>
     </string-array>
 </resources>

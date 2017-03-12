@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import com.example.alexey.newsviewer.Constants;
 import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
+import com.example.alexey.newsviewer.news.SelectorDialogFragment;
 import com.example.alexey.newsviewer.news_details.NewsDetailsActivity;
 import com.example.alexey.newsviewer.utils.SpinnerHelper;
 import com.example.alexey.newsviewer.utils.SquareImageView;
@@ -64,22 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         holder.binding.setNews(newsItem);
 
         holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding));
-
-        SpinnerModel spinnerModel = new SpinnerModel(mContext);
-        holder.binding.setSpinnerModel(spinnerModel);
-
-        spinnerModel.currentPosition.set(SpinnerHelper.getSpinnerFromColor(newsItem.getColor()));
-
-        spinnerModel.currentPosition.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int value) {
-
-                // Set color from selected in spinner value to cardView
-                holder.binding.getNews().setColor(
-                        SpinnerHelper.getColorFromSpinner(holder.binding.getSpinnerModel().currentPosition.get(), mContext));
-            }
-
-        });
+        holder.binding.getRoot().setOnLongClickListener(v -> this.onLongClick(position));
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -111,6 +99,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         }
 
         mContext.startActivity(intent);
+    }
+
+    @Override
+    public boolean onLongClick(int position) {
+        FragmentTransaction ft = ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction();
+        Fragment prev = ((AppCompatActivity) mContext).getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        DialogFragment newFragment = SelectorDialogFragment.newInstance(position);
+        newFragment.show(ft, "dialog");
+
+        return true;
+    }
+
+    public void onChangeColor(int position, int selection) {
+        news.get(position).setColor(
+                SpinnerHelper.getColorFromSpinner((selection), mContext));
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

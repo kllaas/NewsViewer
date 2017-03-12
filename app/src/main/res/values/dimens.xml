@@ -9,4 +9,5 @@
     <dimen name="large_margin">24dp</dimen>
     <dimen name="size_image">256dp</dimen>
     <dimen name="large_text_size">24sp</dimen>
+    <dimen name="card_height">128dp</dimen>
 </resources>

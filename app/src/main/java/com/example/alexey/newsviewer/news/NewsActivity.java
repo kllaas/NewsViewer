@@ -19,7 +19,7 @@ import com.example.alexey.newsviewer.databinding.ActivityNewsBinding;
 
 import java.util.ArrayList;
 
-public class NewsActivity extends BaseActivity {
+public class NewsActivity extends BaseActivity implements SelectorDialogFragment.SelectListener {
 
     private static final String LIST_STATE_KEY = "list_state";
 
@@ -28,6 +28,8 @@ public class NewsActivity extends BaseActivity {
     private LinearLayoutManager mLayoutManager;
 
     private RecyclerView mRecyclerView;
+
+    private NewsAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class NewsActivity extends BaseActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecyclerView.Adapter mAdapter = new NewsAdapter(new ArrayList<>(), this);
+        mAdapter = new NewsAdapter(new ArrayList<>(), this);
         mRecyclerView.setAdapter(mAdapter);
 
         ItemTouchHelper.Callback callback = new MyItemTouchHelper();
@@ -91,5 +93,10 @@ public class NewsActivity extends BaseActivity {
             Parcelable listState = mBundleRecyclerViewState.getParcelable(LIST_STATE_KEY);
             mRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
         }
+    }
+
+    @Override
+    public void onSelected(int position, int selection) {
+        mAdapter.onChangeColor(position, selection);
     }
 }
