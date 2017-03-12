@@ -5,10 +5,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.Window;
 
+import com.example.alexey.newsviewer.BaseActivity;
 import com.example.alexey.newsviewer.Constants;
 import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.databinding.ActivityNewsDetailBinding;
@@ -17,7 +17,7 @@ import com.example.alexey.newsviewer.databinding.ActivityNewsDetailBinding;
  * Created by alexey on 11/03/17.
  */
 
-public class NewsDetailsActivity extends AppCompatActivity implements ImageReadyCallback {
+public class NewsDetailsActivity extends BaseActivity implements ImageReadyCallback {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

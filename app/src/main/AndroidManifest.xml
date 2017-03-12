@@ -26,6 +26,13 @@
             android:parentActivityName=".news.NewsActivity">
         </activity>
 
+        <service android:name=".services.DialogService"/>
+
+        <receiver
+            android:name=".receivers.AlarmReceiver"
+            android:exported="false">
+        </receiver>
+
     </application>
 
 </manifest>

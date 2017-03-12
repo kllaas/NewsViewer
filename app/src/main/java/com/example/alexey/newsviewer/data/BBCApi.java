@@ -15,6 +15,7 @@ public interface BBCApi {
 
     interface Constants {
 
+        String BASE_URL = "https://newsapi.org/";
         String RESOURSE_NAME = "bbc-news";
         String SORT_TYPE = "top";
         String API_KEY = "6c07d6dee46b413293dc57cf3de48590";

@@ -5,13 +5,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Explode;
 import android.view.Window;
 
+import com.example.alexey.newsviewer.BaseActivity;
 import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.adapters.MyItemTouchHelper;
 import com.example.alexey.newsviewer.adapters.NewsAdapter;
@@ -19,7 +19,7 @@ import com.example.alexey.newsviewer.databinding.ActivityNewsBinding;
 
 import java.util.ArrayList;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends BaseActivity {
 
     private static final String LIST_STATE_KEY = "list_state";
 
@@ -30,7 +30,7 @@ public class NewsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

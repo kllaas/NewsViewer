@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NewsViewer</string>
     <string name="transition_name_image">image_transition</string>
+    <string name="title_date_dialog">Date dialog</string>
 </resources>
