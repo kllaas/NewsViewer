@@ -3,6 +3,7 @@ package com.example.alexey.newsviewer.news;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,14 @@ import com.example.alexey.newsviewer.databinding.ActivityNewsBinding;
 import java.util.ArrayList;
 
 public class NewsActivity extends AppCompatActivity {
+
+    private static final String LIST_STATE_KEY = "list_state";
+
+    private static Bundle mBundleRecyclerViewState;
+
+    private LinearLayoutManager mLayoutManager;
+
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +57,11 @@ public class NewsActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         RecyclerView.Adapter mAdapter = new NewsAdapter(new ArrayList<>(), this);
@@ -61,5 +70,26 @@ public class NewsActivity extends AppCompatActivity {
         ItemTouchHelper.Callback callback = new MyItemTouchHelper();
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // save RecyclerView state
+        mBundleRecyclerViewState = new Bundle();
+        Parcelable listState = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        mBundleRecyclerViewState.putParcelable(LIST_STATE_KEY, listState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // restore RecyclerView state
+        if (mBundleRecyclerViewState != null) {
+            Parcelable listState = mBundleRecyclerViewState.getParcelable(LIST_STATE_KEY);
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
+        }
     }
 }

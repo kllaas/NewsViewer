@@ -2,8 +2,8 @@ package com.example.alexey.newsviewer.adapters;
 
 import android.view.View;
 
+import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
-import com.example.alexey.newsviewer.model.NewsItem;
 
 /**
  * Created by alexey on 10/03/17.

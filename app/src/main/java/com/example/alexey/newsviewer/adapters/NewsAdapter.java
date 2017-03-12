@@ -4,19 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alexey.newsviewer.Constants;
+import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
-import com.example.alexey.newsviewer.model.NewsItem;
 import com.example.alexey.newsviewer.news_details.NewsDetailsActivity;
+import com.example.alexey.newsviewer.utils.SpinnerHelper;
 import com.example.alexey.newsviewer.utils.SquareImageView;
 import com.squareup.picasso.Picasso;
 
@@ -62,6 +65,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         holder.binding.setNews(newsItem);
 
         holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding));
+
+        holder.binding.setSpinnerModel(new SpinnerModel(mContext));
+
+        holder.binding.getSpinnerModel().currentPosition.set(SpinnerHelper.getSpinnerFromColor(newsItem.getColor(), mContext));
+
+        holder.binding.getSpinnerModel().currentPosition.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int value) {
+                // Set color from selected in spinner value to cardView
+                holder.binding.getNews().setColor(
+                        SpinnerHelper.getColorFromSpinner(holder.binding.getSpinnerModel().currentPosition.get(), mContext));
+
+                Log.d("currentPosition", holder.binding.getSpinnerModel().currentPosition.get() + "");
+            }
+
+        });
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -101,9 +120,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
 
         ItemViewHolder(View itemView) {
             super(itemView);
+
             binding = DataBindingUtil.bind(itemView);
         }
 
+        /**
+         * Remove item from dataset
+         */
         void onSwiped() {
             NewsRepository.getInstance().removeNews(news.get(this.getAdapterPosition()).getUrl());
 

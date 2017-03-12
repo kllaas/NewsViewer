@@ -1,7 +1,5 @@
 package com.example.alexey.newsviewer.data;
 
-import com.example.alexey.newsviewer.model.NewsList;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

@@ -5,8 +5,8 @@ import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.widget.ImageView;
 
+import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.data.NewsRepository;
-import com.example.alexey.newsviewer.model.NewsItem;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

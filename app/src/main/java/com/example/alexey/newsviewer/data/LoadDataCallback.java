@@ -1,7 +1,5 @@
 package com.example.alexey.newsviewer.data;
 
-import com.example.alexey.newsviewer.model.NewsItem;
-
 import java.util.List;
 
 /**

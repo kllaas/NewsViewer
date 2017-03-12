@@ -1,5 +1,9 @@
-package com.example.alexey.newsviewer.model;
+package com.example.alexey.newsviewer.data;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.android.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by alexey on 10/03/17.
  */
 
-public class NewsItem {
+public class NewsItem extends BaseObservable {
 
     @SerializedName("author")
     @Expose
@@ -36,13 +40,19 @@ public class NewsItem {
     @Expose
     private String publishedAt;
 
-    public NewsItem(String author, String title, String description, String urlToImage, String url, String publishedAt) {
-        this.author = author;
-        this.title = title;
-        this.description = description;
-        this.urlToImage = urlToImage;
-        this.url = url;
-        this.publishedAt = publishedAt;
+    /**
+     * Has default color value
+     */
+    private int color = 0xffffff;
+
+    @Bindable
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        notifyPropertyChanged(BR.color);
     }
 
     public String getUrl() {

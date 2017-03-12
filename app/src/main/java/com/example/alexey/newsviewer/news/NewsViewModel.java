@@ -5,8 +5,8 @@ import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 
 import com.example.alexey.newsviewer.data.LoadDataCallback;
+import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.data.NewsRepository;
-import com.example.alexey.newsviewer.model.NewsItem;
 import com.example.alexey.newsviewer.utils.CustomObservableList;
 
 import java.util.List;

@@ -1,8 +1,6 @@
 package com.example.alexey.newsviewer.data;
 
 import com.example.alexey.newsviewer.App;
-import com.example.alexey.newsviewer.model.NewsItem;
-import com.example.alexey.newsviewer.model.NewsList;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

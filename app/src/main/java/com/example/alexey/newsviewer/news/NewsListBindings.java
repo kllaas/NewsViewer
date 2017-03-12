@@ -20,7 +20,7 @@ import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.alexey.newsviewer.adapters.NewsAdapter;
-import com.example.alexey.newsviewer.model.NewsItem;
+import com.example.alexey.newsviewer.data.NewsItem;
 
 import java.util.List;
 
