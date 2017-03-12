@@ -1,5 +1,6 @@
 package com.example.alexey.newsviewer.data;
 
+import android.content.res.Resources;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
@@ -43,7 +44,7 @@ public class NewsItem extends BaseObservable {
     /**
      * Has default color value
      */
-    private int color = 0xffffff;
+    private int color = Resources.getSystem().getColor(android.R.color.white);
 
     @Bindable
     public int getColor() {

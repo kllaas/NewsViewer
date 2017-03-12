@@ -42,7 +42,7 @@ public class SelectorDialogFragment extends DialogFragment {
         arrayAdapter.addAll(Arrays.asList(getContext().getResources().getStringArray(R.array.spinner_states)));
 
 
-        builderSingle.setNegativeButton("cancel", (DialogInterface dialog, int which) -> {
+        builderSingle.setNegativeButton(android.R.string.cancel, (DialogInterface dialog, int which) -> {
             dialog.dismiss();
         });
 

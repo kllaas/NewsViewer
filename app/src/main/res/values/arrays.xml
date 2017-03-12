@@ -2,7 +2,7 @@
 <resources>
     <string-array name="spinner_states">
         <item>Default color</item>
-        <item>Green</item>
-        <item>Blue</item>
+        <item>Blue Grey</item>
+        <item>Cyan</item>
     </string-array>
 </resources>

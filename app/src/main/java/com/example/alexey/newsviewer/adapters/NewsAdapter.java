@@ -116,6 +116,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         return true;
     }
 
+    /**
+     * Calls after selecting color in the {@link SelectorDialogFragment}
+     */
     public void onChangeColor(int position, int selection) {
         news.get(position).setColor(
                 SpinnerHelper.getColorFromSpinner((selection), mContext));

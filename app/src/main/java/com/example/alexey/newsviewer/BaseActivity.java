@@ -53,9 +53,8 @@ public class BaseActivity extends AppCompatActivity {
                 tvDate.setText(currentDate);
 
                 Picasso.with(BaseActivity.this)
-                        .load("https://assets.rbl.ms/4314213/980x.jpg")
+                        .load(Constants.ALARM_DIALOG_IMAGE_URL)
                         .into(imageView);
-
                 builder.create().show();
             }
         };

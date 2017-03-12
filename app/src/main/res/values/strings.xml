@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewsViewer</string>
+    <string name="app_name">News Viewer</string>
     <string name="transition_name_image">image_transition</string>
-    <string name="title_date_dialog">Date dialog</string>
+    <string name="title_date_dialog">Oh, no…</string>
 </resources>
