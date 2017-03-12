@@ -68,7 +68,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         SpinnerModel spinnerModel = new SpinnerModel(mContext);
         holder.binding.setSpinnerModel(spinnerModel);
 
-        spinnerModel.currentPosition.set(SpinnerHelper.getSpinnerFromColor(newsItem.getColor(), mContext));
+        spinnerModel.currentPosition.set(SpinnerHelper.getSpinnerFromColor(newsItem.getColor()));
 
         spinnerModel.currentPosition.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override

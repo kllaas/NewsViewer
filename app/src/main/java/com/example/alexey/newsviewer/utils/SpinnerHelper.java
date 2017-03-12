@@ -23,13 +23,13 @@ public class SpinnerHelper {
         }
     }
 
-    public static int getSpinnerFromColor(int color, Context mContext) {
+    public static int getSpinnerFromColor(int color) {
         switch (color) {
             case 0xffffff:
                 return 0;
-            case 0x00e2ae:
+            case 0xa5d6a7:
                 return 1;
-            case 0x88e200:
+            case 0xbbdefb:
                 return 2;
             default:
                 return 0;

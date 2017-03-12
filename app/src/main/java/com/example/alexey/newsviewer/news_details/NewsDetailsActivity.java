@@ -1,5 +1,6 @@
 package com.example.alexey.newsviewer.news_details;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,13 +13,13 @@ import com.example.alexey.newsviewer.BaseActivity;
 import com.example.alexey.newsviewer.Constants;
 import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.databinding.ActivityNewsDetailBinding;
+import com.example.alexey.newsviewer.news.NewsActivity;
 
 /**
  * Created by alexey on 11/03/17.
  */
 
 public class NewsDetailsActivity extends BaseActivity implements ImageReadyCallback {
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,5 +48,11 @@ public class NewsDetailsActivity extends BaseActivity implements ImageReadyCallb
     @Override
     public void onImageReady() {
         ActivityCompat.startPostponedEnterTransition(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, NewsActivity.class);
+        startActivity(intent);
     }
 }

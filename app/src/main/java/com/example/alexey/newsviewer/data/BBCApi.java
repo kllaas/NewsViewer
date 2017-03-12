@@ -14,7 +14,6 @@ public interface BBCApi {
     Call<NewsList> getData(@Query("source") String resourceName, @Query("sortBy") String sort, @Query("apiKey") String apiKey);
 
     interface Constants {
-
         String BASE_URL = "https://newsapi.org/";
         String RESOURCE_NAME = "bbc-news";
         String SORT_TYPE = "top";
