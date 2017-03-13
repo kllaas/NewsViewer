@@ -35,6 +35,27 @@
             android:layout_centerVertical="true"
             android:visibility="@{viewModel.dataLoading ? v.VISIBLE : v.GONE}"/>
 
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_cat"
+            android:visibility="@{viewModel.empty ? v.VISIBLE : v.GONE}"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/large_margin"
+            android:text="@string/message_no_data"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.empty ? v.VISIBLE : v.GONE}"/>
+
+
     </RelativeLayout>
 
 </layout>

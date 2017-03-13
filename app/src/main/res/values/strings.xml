@@ -2,4 +2,5 @@
     <string name="app_name">News Viewer</string>
     <string name="transition_name_image">image_transition</string>
     <string name="title_date_dialog">Oh, no…</string>
+    <string name="message_no_data">There is no available data…</string>
 </resources>
