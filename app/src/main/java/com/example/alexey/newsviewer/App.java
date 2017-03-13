@@ -12,6 +12,8 @@ import com.example.alexey.newsviewer.receivers.AlarmReceiver;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+
 /**
  * Created by alexey on 11/03/17.
  */
@@ -41,8 +43,8 @@ public class App extends Application {
     private void startAlarmReceiver() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 2,
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_UPDATE_CURRENT);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 20,
                 pendingIntent);
     }
 }

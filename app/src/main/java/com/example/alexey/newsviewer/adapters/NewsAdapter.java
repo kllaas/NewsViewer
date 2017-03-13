@@ -19,7 +19,7 @@ import com.example.alexey.newsviewer.Constants;
 import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
-import com.example.alexey.newsviewer.news.SelectorDialogFragment;
+import com.example.alexey.newsviewer.dialogs.SelectorDialogFragment;
 import com.example.alexey.newsviewer.news_details.NewsDetailsActivity;
 import com.example.alexey.newsviewer.utils.SpinnerHelper;
 import com.example.alexey.newsviewer.utils.SquareImageView;

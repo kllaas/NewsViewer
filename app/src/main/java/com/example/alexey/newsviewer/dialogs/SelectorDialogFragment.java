@@ -1,4 +1,4 @@
-package com.example.alexey.newsviewer.news;
+package com.example.alexey.newsviewer.dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
 import com.example.alexey.newsviewer.R;
+import com.example.alexey.newsviewer.news.NewsActivity;
 
 import java.util.Arrays;
 

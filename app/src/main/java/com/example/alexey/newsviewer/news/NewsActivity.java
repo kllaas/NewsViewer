@@ -16,6 +16,7 @@ import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.adapters.MyItemTouchHelper;
 import com.example.alexey.newsviewer.adapters.NewsAdapter;
 import com.example.alexey.newsviewer.databinding.ActivityNewsBinding;
+import com.example.alexey.newsviewer.dialogs.SelectorDialogFragment;
 
 import java.util.ArrayList;
 

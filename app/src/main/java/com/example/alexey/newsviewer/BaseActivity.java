@@ -5,13 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.example.alexey.newsviewer.dialogs.AlarmDialogFragment;
 
 /**
  * Created by alexey on 12/03/17.
@@ -37,25 +35,16 @@ public class BaseActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 String currentDate = intent.getStringExtra(TIME);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
-                builder.setTitle(R.string.title_date_dialog);
+                DialogFragment prev = (DialogFragment) getSupportFragmentManager().findFragmentByTag("alarm");
+                if (prev != null) {
+                    prev.dismiss();
+                    ft.remove(prev);
+                }
 
-                View view = getLayoutInflater()
-                        .inflate(R.layout.dialog_date, null);
-                builder.setView(view);
-
-                TextView tvDate = (TextView) view.findViewById(R.id.tv_text);
-                ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
-
-
-                tvDate.setText(currentDate);
-
-                Picasso.with(BaseActivity.this)
-                        .load(Constants.ALARM_DIALOG_IMAGE_URL)
-                        .into(imageView);
-                builder.create().show();
+                DialogFragment newFragment = AlarmDialogFragment.newInstance(currentDate);
+                newFragment.show(ft, "alarm");
             }
         };
 
