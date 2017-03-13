@@ -97,7 +97,7 @@ public class NewsActivity extends BaseActivity implements SelectorDialogFragment
     }
 
     @Override
-    public void onSelected(int position, int selection) {
+    public void onSelected(String position, int selection) {
         mAdapter.onChangeColor(position, selection);
     }
 }

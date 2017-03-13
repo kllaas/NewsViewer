@@ -1,16 +1,13 @@
 package com.example.alexey.newsviewer.dialogs;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.widget.ArrayAdapter;
+import android.view.View;
 
 import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.news.NewsActivity;
-
-import java.util.Arrays;
 
 
 /**
@@ -19,13 +16,17 @@ import java.util.Arrays;
 
 public class SelectorDialogFragment extends DialogFragment {
 
-    private int position;
+    private String url;
 
-    public static SelectorDialogFragment newInstance(int position) {
+    private View secondColor;
+
+    private View thirdColor;
+
+    public static SelectorDialogFragment newInstance(String url) {
         SelectorDialogFragment dialogFragment = new SelectorDialogFragment();
 
         Bundle args = new Bundle();
-        args.putInt("position", position);
+        args.putString("position", url);
         dialogFragment.setArguments(args);
 
         return dialogFragment;
@@ -33,36 +34,43 @@ public class SelectorDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        position = getArguments().getInt("position");
+        url = getArguments().getString("position");
 
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
-        builderSingle.setTitle("Select color:");
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Select color:");
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.select_dialog_item);
+        builder.setNegativeButton(getResources().getString(R.string.action_clear), (dialog, which) -> handleClick(0));
 
-        arrayAdapter.addAll(Arrays.asList(getContext().getResources().getStringArray(R.array.spinner_states)));
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_select_color, null);
+        builder.setView(view);
 
+        initViews(view);
 
-        builderSingle.setNegativeButton(android.R.string.cancel, (DialogInterface dialog, int which) -> {
-            dialog.dismiss();
-        });
-
-        builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
-            sendBackResult(position, which);
-            dialog.cancel();
-        });
-
-        return builderSingle.create();
+        return builder.create();
     }
 
-    public void sendBackResult(int position, int selection) {
+    private void initViews(View view) {
+        secondColor = view.findViewById(R.id.color_icon_second);
+        thirdColor = view.findViewById(R.id.color_icon_third);
+
+        secondColor.setOnClickListener(v -> handleClick(1));
+
+        thirdColor.setOnClickListener(v -> handleClick(2));
+    }
+
+    private void handleClick(int selection) {
+        getDialog().cancel();
+        sendBackResult(url, selection);
+    }
+
+    public void sendBackResult(String url, int selection) {
         SelectListener listener = (NewsActivity) getActivity();
-        listener.onSelected(position, selection);
+        listener.onSelected(url, selection);
         dismiss();
     }
 
     public interface SelectListener {
-        void onSelected(int position, int selection);
+        void onSelected(String url, int selection);
     }
 
 }

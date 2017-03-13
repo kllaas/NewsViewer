@@ -23,8 +23,6 @@ public class NewsViewModel extends BaseObservable {
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
 
-    public final ObservableBoolean mIsDataLoadingError = new ObservableBoolean(false);
-
     private NewsRepository mRepository;
 
     public NewsViewModel() {
@@ -51,7 +49,6 @@ public class NewsViewModel extends BaseObservable {
             @Override
             public void onDataNotAvailable() {
                 dataLoading.set(false);
-                mIsDataLoadingError.set(true);
             }
         });
     }

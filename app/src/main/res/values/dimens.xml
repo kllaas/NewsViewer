@@ -11,4 +11,5 @@
     <dimen name="large_text_size">24sp</dimen>
     <dimen name="card_height">128dp</dimen>
     <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="color_icon_size">48dp</dimen>
 </resources>

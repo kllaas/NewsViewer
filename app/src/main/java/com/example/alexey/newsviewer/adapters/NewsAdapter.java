@@ -67,7 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         holder.binding.setNews(newsItem);
 
         holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding));
-        holder.binding.getRoot().setOnLongClickListener(v -> this.onLongClick(position));
+        holder.binding.getRoot().setOnLongClickListener(v -> this.onLongClick(newsItem.getUrl()));
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -101,8 +101,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         mContext.startActivity(intent);
     }
 
+    /**
+     * Show dialog to select color of item.
+     *
+     * @param url don`t use position because it could be changed while item removing.
+     */
     @Override
-    public boolean onLongClick(int position) {
+    public boolean onLongClick(String url) {
         FragmentTransaction ft = ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction();
         Fragment prev = ((AppCompatActivity) mContext).getSupportFragmentManager().findFragmentByTag("dialog");
         if (prev != null) {
@@ -110,7 +115,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         }
         ft.addToBackStack(null);
 
-        DialogFragment newFragment = SelectorDialogFragment.newInstance(position);
+        DialogFragment newFragment = SelectorDialogFragment.newInstance(url);
         newFragment.show(ft, "dialog");
 
         return true;
@@ -119,9 +124,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
     /**
      * Calls after selecting color in the {@link SelectorDialogFragment}
      */
-    public void onChangeColor(int position, int selection) {
-        news.get(position).setColor(
+    public void onChangeColor(String url, int selection) {
+        getNewsByUrl(url).setColor(
                 SpinnerHelper.getColorFromSpinner((selection), mContext));
+    }
+
+    private NewsItem getNewsByUrl(String url) {
+        for (NewsItem newsItem : news) {
+            if (newsItem.getUrl().equals(url)) {
+                return newsItem;
+            }
+        }
+        return new NewsItem();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
