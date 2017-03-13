@@ -13,7 +13,4 @@ public interface OnItemClickListener<T> {
 
     void onItemClick(NewsItem item, View v, NewsItemBinding imageView);
 
-    boolean onLongClick(String url);
-
-
 }

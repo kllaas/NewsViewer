@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.example.alexey.newsviewer.dialogs.AlarmDialogFragment;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by alexey on 12/03/17.
@@ -22,6 +24,8 @@ public class BaseActivity extends AppCompatActivity {
     public static final String TIME = "time";
 
     private BroadcastReceiver mReceiver;
+
+    private AlertDialog mDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,16 +40,32 @@ public class BaseActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 String currentDate = intent.getStringExtra(TIME);
 
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-                DialogFragment prev = (DialogFragment) getSupportFragmentManager().findFragmentByTag("alarm");
-                if (prev != null) {
-                    prev.dismiss();
-                    ft.remove(prev);
+                if (mDialog != null) {
+                    mDialog.cancel();
                 }
 
-                DialogFragment newFragment = AlarmDialogFragment.newInstance(currentDate);
-                newFragment.show(ft, "alarm");
+                AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
+
+                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+                builder.setTitle(R.string.title_date_dialog);
+
+                View view = getLayoutInflater()
+                        .inflate(R.layout.dialog_date, null);
+                builder.setView(view);
+
+                TextView tvDate = (TextView) view.findViewById(R.id.tv_text);
+                ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+
+
+                tvDate.setText(currentDate);
+
+                Picasso.with(BaseActivity.this)
+                        .load(Constants.ALARM_DIALOG_IMAGE_URL)
+                        .into(imageView);
+
+                mDialog = builder.create();
+
+                mDialog.show();
             }
         };
 

@@ -16,11 +16,10 @@ import com.example.alexey.newsviewer.R;
 import com.example.alexey.newsviewer.adapters.MyItemTouchHelper;
 import com.example.alexey.newsviewer.adapters.NewsAdapter;
 import com.example.alexey.newsviewer.databinding.ActivityNewsBinding;
-import com.example.alexey.newsviewer.dialogs.SelectorDialogFragment;
 
 import java.util.ArrayList;
 
-public class NewsActivity extends BaseActivity implements SelectorDialogFragment.SelectListener {
+public class NewsActivity extends BaseActivity {
 
     private static final String LIST_STATE_KEY = "list_state";
 
@@ -96,8 +95,4 @@ public class NewsActivity extends BaseActivity implements SelectorDialogFragment
         }
     }
 
-    @Override
-    public void onSelected(String position, int selection) {
-        mAdapter.onChangeColor(position, selection);
-    }
 }

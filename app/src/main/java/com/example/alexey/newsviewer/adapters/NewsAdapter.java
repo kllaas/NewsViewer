@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +16,7 @@ import com.example.alexey.newsviewer.Constants;
 import com.example.alexey.newsviewer.data.NewsItem;
 import com.example.alexey.newsviewer.data.NewsRepository;
 import com.example.alexey.newsviewer.databinding.NewsItemBinding;
-import com.example.alexey.newsviewer.dialogs.SelectorDialogFragment;
 import com.example.alexey.newsviewer.news_details.NewsDetailsActivity;
-import com.example.alexey.newsviewer.utils.SpinnerHelper;
 import com.example.alexey.newsviewer.utils.SquareImageView;
 import com.squareup.picasso.Picasso;
 
@@ -67,7 +62,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         holder.binding.setNews(newsItem);
 
         holder.binding.getRoot().setOnClickListener(v -> this.onItemClick(newsItem, v, holder.binding));
-        holder.binding.getRoot().setOnLongClickListener(v -> this.onLongClick(newsItem.getUrl()));
     }
 
     public void replaceData(List<NewsItem> items) {
@@ -99,43 +93,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemViewHolder
         }
 
         mContext.startActivity(intent);
-    }
-
-    /**
-     * Show dialog to select color of item.
-     *
-     * @param url don`t use position because it could be changed while item removing.
-     */
-    @Override
-    public boolean onLongClick(String url) {
-        FragmentTransaction ft = ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction();
-        Fragment prev = ((AppCompatActivity) mContext).getSupportFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        DialogFragment newFragment = SelectorDialogFragment.newInstance(url);
-        newFragment.show(ft, "dialog");
-
-        return true;
-    }
-
-    /**
-     * Calls after selecting color in the {@link SelectorDialogFragment}
-     */
-    public void onChangeColor(String url, int selection) {
-        getNewsByUrl(url).setColor(
-                SpinnerHelper.getColorFromSpinner((selection), mContext));
-    }
-
-    private NewsItem getNewsByUrl(String url) {
-        for (NewsItem newsItem : news) {
-            if (newsItem.getUrl().equals(url)) {
-                return newsItem;
-            }
-        }
-        return new NewsItem();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

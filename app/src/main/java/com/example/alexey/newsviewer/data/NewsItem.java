@@ -1,10 +1,7 @@
 package com.example.alexey.newsviewer.data;
 
-import android.content.res.Resources;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 
-import com.android.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -40,21 +37,6 @@ public class NewsItem extends BaseObservable {
     @SerializedName("publishedAt")
     @Expose
     private String publishedAt;
-
-    /**
-     * Has default color value
-     */
-    private int color = Resources.getSystem().getColor(android.R.color.white);
-
-    @Bindable
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-        notifyPropertyChanged(BR.color);
-    }
 
     public String getUrl() {
         return url;
